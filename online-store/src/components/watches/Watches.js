@@ -1,7 +1,7 @@
 import React from 'react'
 import {Carousel, Popover, OverlayTrigger, Button} from 'react-bootstrap'
 
-function Watches({product}) {
+function Watches({product, commerce}) {
     return (
         <>
             <Carousel indicators={false}>
@@ -31,10 +31,18 @@ function Watches({product}) {
                                 <span>{pd.price.formatted_with_code}</span>
                             </h2>
                             <p> 
-                                <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                                <OverlayTrigger trigger="click" placement="left" overlay={popover}>
                                     <Button variant="outline-primary" className="mx-5 mt-3">Click for Item Description</Button>
                                 </OverlayTrigger>
-                                <Button variant="outline-primary" className="mx-5 mt-3"> Add to Cart</Button>
+                                <Button 
+                                    variant="outline-primary" 
+                                    className="mx-5 mt-3"
+                                    onClick={()=>{
+                                        commerce.cart.add(pd.id, 1).then((response)=>console.log(response))
+                                    }}
+                                > 
+                                    Add to Cart
+                                </Button>
                             </p>
                         </Carousel.Caption>   
                         </Carousel.Item>
