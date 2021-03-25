@@ -16,6 +16,7 @@ const fetchProducts = async()=>{
   const {data} = await commerce.products.list()
   setProduct(data)
 }
+
 useEffect(()=>{
   fetchProducts()
 }, [])
@@ -35,7 +36,7 @@ useEffect(()=>{
               <Link to="/accessories" className="link">Accessories</Link>
             </li>
             <li>
-              <Link to="/" className="link-home">Home</Link>
+              <Link to="/home" className="link-home">Home</Link>
             </li>
             <li>
               <Link to="/cart" className="link"><i className="fa fas fa-shopping-cart"></i></Link>
@@ -44,17 +45,17 @@ useEffect(()=>{
         </nav>
 
         <Switch>
-          <Route path="/watches">
-            <Watches product={product} />
-          </Route>
-          <Route path="/accessories">
-            <Accessories product={product} />
-          </Route>
-          <Route path="/">
+          <Route path="/home">
             <Home />
           </Route>
-          <Route path="cart">
-            <Cart />
+          <Route path="/watches">
+            <Watches product={product} commerce={commerce} />
+          </Route>
+          <Route path="/accessories">
+            <Accessories product={product} commerce={commerce} />
+          </Route>
+          <Route path="/cart">
+            <Cart commerce={commerce} />
           </Route>
         </Switch>
       </div>
