@@ -1,16 +1,13 @@
-import React, {useState, useEffect} from 'react'
-import {Container, Row, Col, Button} from 'react-bootstrap'
+import React, {useContext} from 'react'
+import {Container, Row, Col, Button, Spinner} from 'react-bootstrap'
+import {Context} from '../Context/Context'
+import {Link} from 'react-router-dom'
 
-function Cart({commerce}) {
+function Cart() {
 
-    const [Items, setItems] = useState([])
+    const {Items, setItems, commerce} = useContext(Context)
 
-    useEffect(()=>{
-        commerce.cart.contents().then((items)=>setItems(items))
-    },[commerce.cart])
     console.log(Items)
-
-    const isEmpty = (Items.length === 0) ? true  :false 
 
     const EmptyCart = ()=> {
         return (
@@ -19,12 +16,13 @@ function Cart({commerce}) {
             </div>
         )
     }
+
     const PopulatedCart = ()=> {
         return (
             <>
             <Container>
                 <Row className="justify-content-md-center">
-                { Items.map((item,index)=>{
+                {Items.line_items.map((item,index)=>{
                     let quantity = 1
                     return (
                         <Col xs={6} md={3} className="mt-2">
@@ -49,7 +47,7 @@ function Cart({commerce}) {
                                                 onClick={()=>{
                                                     quantity--
                                                     commerce.cart.update(item.id, {quantity: quantity})
-                                                    .then(response=>console.log(response))
+                                                    .then(response=>setItems(response.cart))
                                                 }}
                                             >
                                                     <i className="fa fa-minus" />
@@ -62,7 +60,7 @@ function Cart({commerce}) {
                                                 onClick={()=>{
                                                     quantity++
                                                     commerce.cart.update(item.id, {quantity: quantity})
-                                                    .then(response=>console.log(response))
+                                                    .then(response=>setItems(response.cart))
                                                 }}
                                             >
                                                 <i className="fa fa-plus" />
@@ -71,7 +69,7 @@ function Cart({commerce}) {
                                                 variant="primary" 
                                                 className="ml-4"
                                                 onClick={()=>{
-                                                    commerce.cart.remove(item.id)
+                                                    commerce.cart.remove(item.id).then(response=>setItems(response.cart))
                                                 }}
                                             >
                                                 <i className="fa fa-trash" /> item
@@ -83,39 +81,41 @@ function Cart({commerce}) {
                         </Col>
                     )   
                 }) 
-                }
+            }
                 </Row>             
             </Container>
             <div className="mt-5">
                 <div className="cart-checkout-wrapper">
                     <div className="subtotal"> 
-                        Subtotal:
+                        Subtotal:   <span style={{color: '#C3073F', fontWeight: 'bold'}}> 
+                                        {Items.subtotal.formatted_with_code} 
+                                    </span>
                     </div>
                     <div>
                         <Button 
-                            variant="primary" 
+                            variant="outline-primary" 
                             className="mx-2"
                             onClick={()=>{
-                                commerce.cart.empty()
+                                commerce.cart.empty().then((response)=>setItems(response.cart))
                             }}
                         >
                             EmptyCart
                         </Button>
-                        <Button variant="primary">Checkout</Button>
+                        <Link to="/checkout">
+                            <Button variant="primary" type="button">Checkout</Button>
+                        </Link>   
                     </div>
                 </div>
             </div>
             </>
         )
     }
-
+    if (!Items.line_items) return  <div className="loading-position">
+                                        <Spinner animation="border" style={{color: '#C5C6C7'}} />
+                                    </div> 
     return (
         <>
-        {
-                (isEmpty)
-            ?   <EmptyCart />
-            :   <PopulatedCart />
-        }
+        {(Items.line_items.length === 0) ?<EmptyCart /> :<PopulatedCart />}
         </>
     )
 }
