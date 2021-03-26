@@ -1,7 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Carousel, Popover, OverlayTrigger, Button} from 'react-bootstrap'
+import {Context} from '../Context/Context'
 
-function Watches({product, commerce}) {
+function Watches() {
+
+    const {product, setItems, commerce} = useContext(Context)
+
     return (
         <>
             <Carousel indicators={false}>
@@ -38,7 +42,7 @@ function Watches({product, commerce}) {
                                     variant="outline-primary" 
                                     className="mx-5 mt-3"
                                     onClick={()=>{
-                                        commerce.cart.add(pd.id, 1).then((response)=>console.log(response))
+                                        commerce.cart.add(pd.id, 1).then((response)=>setItems(response.cart))
                                     }}
                                 > 
                                     Add to Cart
