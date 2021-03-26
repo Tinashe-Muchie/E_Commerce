@@ -269,4 +269,56 @@ code {
   font-size: larger;
   color: #C5C6C7;
 }
-
+.loading-position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30vh;
+}
+.checkout-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.checkout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:auto;
+  margin-right:auto;
+  color: #C5C6C7;
+  font-family: Papyrus;
+  font-weight: bolder;
+}
+.address {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:auto;
+  margin-right:auto;
+  color: #C3073F;
+  font-family: Papyrus;
+  font-weight: bolder;
+}
+.address-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:auto;
+  margin-right:auto;
+  border: thin solid #C3073F;
+  border-radius: 15px;
+  padding-top: 2%;
+}
+.form-control {
+  background-color: #C5C6C7 !important;
+  color: #1A1A1D !important;
+  font-family: Papyrus !important;
+}
+.form-label {
+  color: #C3073F !important;
+  font-family: Papyrus !important;
+  font-weight: bold !important;
+}
