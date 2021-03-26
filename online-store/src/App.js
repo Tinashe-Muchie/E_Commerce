@@ -1,27 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import Watches from './components/watches/Watches'
 import Accessories from './components/accessories/Accessories'
 import Cart from './components/cart/Cart'
 import Home from './components/home/home'
+import Checkout from './components/Checkout/Checkout'
 import {Helmet} from 'react-helmet'
-import {commerce} from './lib/commerce'
+import GlobalContext from './components/Context/Context'
 import './App.css';
 
 function App() {
 
-const [product, setProduct] = useState([])
-
-const fetchProducts = async()=>{
-  const {data} = await commerce.products.list()
-  setProduct(data)
-}
-
-useEffect(()=>{
-  fetchProducts()
-}, [])
-
   return (
+    <GlobalContext>
     <Router>
       <div className="container">
         <Helmet>
@@ -36,7 +27,7 @@ useEffect(()=>{
               <Link to="/accessories" className="link">Accessories</Link>
             </li>
             <li>
-              <Link to="/home" className="link-home">Home</Link>
+              <Link to="/" className="link-home">Home</Link>
             </li>
             <li>
               <Link to="/cart" className="link"><i className="fa fas fa-shopping-cart"></i></Link>
@@ -45,21 +36,25 @@ useEffect(()=>{
         </nav>
 
         <Switch>
-          <Route path="/home">
+          <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/watches">
-            <Watches product={product} commerce={commerce} />
+          <Route exact path="/watches">
+            <Watches />
           </Route>
-          <Route path="/accessories">
-            <Accessories product={product} commerce={commerce} />
+          <Route exact path="/accessories">
+            <Accessories />
           </Route>
-          <Route path="/cart">
-            <Cart commerce={commerce} />
+          <Route exact path="/cart">
+            <Cart />
+          </Route>
+          <Route exact path="/checkout">
+            <Checkout />
           </Route>
         </Switch>
       </div>
     </Router>
+    </GlobalContext>  
   );
 }
 
