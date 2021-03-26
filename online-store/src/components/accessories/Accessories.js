@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Carousel, Popover, OverlayTrigger, Button} from 'react-bootstrap' 
+import {Context} from '../Context/Context'
 
-function Accessories({product, commerce}) {
-    console.log(product)
+function Accessories() {
+    
+    const {product, commerce, setItems} = useContext(Context)
 
     return (
         <>
@@ -40,7 +42,7 @@ function Accessories({product, commerce}) {
                                 variant="outline-primary" 
                                 className="mx-5 mt-3"
                                 onClick={()=>{
-                                    commerce.cart.add(pd.id, 1).then((response)=>console.log(response))
+                                    commerce.cart.add(pd.id, 1).then((response)=>setItems(response.cart))
                                 }}
                             > 
                                 Add to Cart
