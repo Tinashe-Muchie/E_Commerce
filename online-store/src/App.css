@@ -322,3 +322,54 @@ code {
   font-family: Papyrus !important;
   font-weight: bold !important;
 }
+label {
+  color: #C3073F !important;
+  font-family: Papyrus !important;
+  font-weight: bold !important;
+}
+input {
+  background-color: #C5C6C7 !important;
+  color: #1A1A1D !important;
+  font-family: Papyrus !important;
+  border: thin solid #c5c6c7 !important;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  width: 100%;
+}
+select {
+  display: flex;
+  width: 100%;
+  background-color: #C5C6C7;
+  color: #1A1A1D;
+  font-family: Papyrus;
+  border: thin solid #C5C6C7;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+option {
+  font-family: Papyrus;
+}
+.order-summary {
+  color: #C3073F;
+  font-family: Papyrus;
+  font-weight: bolder;
+}
+.order-summary-product-title {
+  font-family: Papyrus;
+  font-weight: bold;
+  font-size: larger;
+}
+.order-summary-product-subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Papyrus;
+  font-size: small;
+}
+.order-summary-total-subtitle {
+  font-family: Papyrus;
+  font-size: normal;
+}
