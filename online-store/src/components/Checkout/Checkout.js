@@ -57,7 +57,7 @@ const ColorlibConnector = withStyles({
     const icons = {
       1: <HomeIcon />,
       2: <PaymentIcon />,
-    };
+    }
   
     return (
       <div
@@ -68,16 +68,12 @@ const ColorlibConnector = withStyles({
       >
         {icons[String(props.icon)]}
       </div>
-    );
+    )
   }
 
   const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '50%',
-    },
-    button: {
-      marginRight: theme.spacing(20),
-    },
+    root: { width: '50%' },
+    button: { marginRight: theme.spacing(20) },
     instructions: {
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
@@ -86,37 +82,34 @@ const ColorlibConnector = withStyles({
 
   function getSteps() {
     return ['Shipping Address', 'Payment Details']
-  }
-  
-  function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return <AddressForm />
-      case 1:
-        return <PaymentForm />
-      default:
-        return 'Unknown step'
-    }
-  }
-  
+  } 
 
 function Checkout() {
     
     const classes = useStyles()
-    const [activeStep, setActiveStep] = useState(0);
-    const steps = getSteps();
+    const [activeStep, setActiveStep] = useState(1)
+    const [shippingData, setShippingData] = useState({})
+    const steps = getSteps()
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+    const handleNext = () => {setActiveStep((prevActiveStep) => prevActiveStep + 1)}
+    const handleBack = () => {setActiveStep((prevActiveStep) => prevActiveStep - 1)}
+    const handleReset = () => {setActiveStep(0)}
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+    const next = (data) => {
+      setShippingData(data)
+      handleNext()
+    }
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
+    function getStepContent(step) {
+      switch (step) {
+        case 0:
+          return <AddressForm next={next} />
+        case 1:
+          return <PaymentForm shippingData={shippingData}/>
+        default:
+          return 'Unknown step'
+      }
+    }
     
     return(
       <div className="checkout-wrapper">
