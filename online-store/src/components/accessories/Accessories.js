@@ -32,14 +32,14 @@ function Accessories() {
                             <span>{pd.name}</span>  
                         </h3>
                         <h2>
-                            <span>{pd.price.formatted_with_code}</span>
+                            <span>{pd.price.formatted_with_symbol}</span>
                         </h2>
                         <p> 
-                            <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+                            <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
                                 <Button variant="outline-primary" className="mx-5 mt-3">Click for Item Description</Button>
                             </OverlayTrigger>
                             <Button 
-                                variant="outline-primary" 
+                                variant="primary" 
                                 className="mx-5 mt-3"
                                 onClick={()=>{
                                     commerce.cart.add(pd.id, 1).then((response)=>setItems(response.cart))
