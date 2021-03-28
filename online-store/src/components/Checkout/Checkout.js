@@ -1,11 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {makeStyles, withStyles} from '@material-ui/core/styles'
 import HomeIcon from '@material-ui/icons/Home'
 import PaymentIcon from '@material-ui/icons/Payment'
-import {StepConnector, Stepper, Step, StepLabel, Typography, Button} from '@material-ui/core'
+import {StepConnector, Stepper, Step, StepLabel, Typography} from '@material-ui/core'
 import clsx from 'clsx'
 import AddressForm from './AddressForm'
 import PaymentForm from './PaymentForm'
+import {Link} from 'react-router-dom'
+import {Context} from '../Context/Context'
+import {Spinner, Button, ListGroup} from 'react-bootstrap'
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -87,17 +90,67 @@ const ColorlibConnector = withStyles({
 function Checkout() {
     
     const classes = useStyles()
-    const [activeStep, setActiveStep] = useState(1)
+    const [activeStep, setActiveStep] = useState(0)
     const [shippingData, setShippingData] = useState({})
+    const [isDone, setIsDone] = useState(false)
+    const {order, error} = useContext(Context)
     const steps = getSteps()
 
     const handleNext = () => {setActiveStep((prevActiveStep) => prevActiveStep + 1)}
     const handleBack = () => {setActiveStep((prevActiveStep) => prevActiveStep - 1)}
-    const handleReset = () => {setActiveStep(0)}
 
     const next = (data) => {
       setShippingData(data)
       handleNext()
+    }
+    const timeout = () => {
+      setTimeout(()=>{
+        setIsDone(true)
+      }, 5000)
+    }
+
+    let Confirmation = () => (
+        (order.customer)
+      ? <>
+          <div>
+            <span> Thank you for the purchase, {order.customer.firstname} {order.customer.lastname} </span>
+            <span> Order ref: {order.customer_reference}</span>
+          </div><br />
+          <div>
+            <Link to="/">
+              <Button type="button" className="secondary">Back to Home</Button>
+            </Link>
+          </div>
+        </>
+      : (isDone)
+      ? <>
+            <ListGroup>
+              <ListGroup.Item>
+                <div>
+                  <span> Thank you for the purchase. </span>
+                </div><hr />
+                <div>
+                  <Link to="/">
+                    <Button type="button" variant="secondary">Back to Home</Button>
+                  </Link>
+                </div>
+              </ListGroup.Item>
+            </ListGroup>  
+        </>
+      : <div className="loading-position">
+          <Spinner animation="border" style={{color: '#C5C6C7'}} />
+        </div>
+    )
+
+    if(error) {
+      <>
+        <div>`Error: ${error}`</div><br />
+        <div>
+            <Link to="/">
+              <Button type="button" className="secondary">Back to Home</Button>
+            </Link>
+        </div>
+      </>
     }
 
     function getStepContent(step) {
@@ -105,7 +158,14 @@ function Checkout() {
         case 0:
           return <AddressForm next={next} />
         case 1:
-          return <PaymentForm shippingData={shippingData}/>
+          return <PaymentForm 
+                  shippingData={shippingData} 
+                  handleBack={handleBack} 
+                  handleNext={handleNext}
+                  timeout={timeout} 
+                  />
+        case 2:
+          return <Confirmation />
         default:
           return 'Unknown step'
       }
@@ -125,29 +185,13 @@ function Checkout() {
             {activeStep === steps.length ? (
               <div>
                 <Typography className={classes.instructions}>
-                  All steps completed - you&apos;re finished
+                  <Confirmation />
                 </Typography>
-                <Button onClick={handleReset} className={classes.button}>
-                  Reset
-                </Button>
               </div>
             ) : (
               <div>
                 <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                <div>
-                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                    Back
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                  </Button>
-                </div>
-            </div>
+              </div>
           )}
           </div>
       </div>
