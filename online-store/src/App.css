@@ -225,6 +225,48 @@ code {
   border-color: #C3073F !important;
   border-width: 0.15rem !important;
 }
+.btn-secondary {
+  color: black !important;
+  border:solid !important;
+  border-color: #C3073F !important;
+  border-width: 0.1rem !important;
+  background-color: #c3073fab !important;
+  font-family: Papyrus !important;
+  font-weight: bold;
+}
+.btn-outline-secondary {
+  color: black !important;
+  border:solid !important;
+  border-color: #C3073F !important;
+  border-width: 0.1rem !important;
+  font-family: Papyrus !important;
+  font-weight: bold;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #950740 !important;
+  font-weight: bold;
+  color: black !important;
+  border-color: #C3073F !important;
+  border-width: 0.1rem !important;
+
+}
+
+.btn-outline-secondary:focus {
+  background-color: #950740 !important;
+  color: black !important;
+  font-weight: bold;
+  border-color: #C3073F !important;
+  border-width: 0.1rem !important;
+}
+
+.btn-outline-secondary:active {
+  color: black !important;
+  font-weight: bold;
+  border:solid !important;
+  border-color: #C3073F !important;
+  border-width: 0.1rem !important;
+}
 .popover {
   background-color: #1A1A1D !important;
   border: hidden !important;
@@ -306,11 +348,9 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left:auto;
-  margin-right:auto;
-  border: thin solid #C3073F;
-  border-radius: 15px;
+  background-color: white;
   padding-top: 2%;
+  padding-bottom: 2%;
 }
 .form-control {
   background-color: #C5C6C7 !important;
@@ -323,12 +363,12 @@ code {
   font-weight: bold !important;
 }
 label {
-  color: #C3073F !important;
+  color: black !important;
   font-family: Papyrus !important;
   font-weight: bold !important;
 }
 input {
-  background-color: #C5C6C7 !important;
+  background-color: #c3073fa9 !important;
   color: #1A1A1D !important;
   font-family: Papyrus !important;
   border: thin solid #c5c6c7 !important;
@@ -339,10 +379,11 @@ input {
 }
 select {
   display: flex;
-  width: 100%;
-  background-color: #C5C6C7;
-  color: #1A1A1D;
+  font-weight: lighter;
   font-family: Papyrus;
+  width: 100%;
+  background-color: #c3073fa9;
+  color: #1A1A1D;
   border: thin solid #C5C6C7;
   border-radius: 5px;
   padding: 5px;
@@ -371,5 +412,35 @@ option {
 }
 .order-summary-total-subtitle {
   font-family: Papyrus;
-  font-size: normal;
+  font-size: small;
+}
+.wrapper {
+  overflow: hidden;
+}
+.sliding-background {
+  background: url('./pub/img/skagen.png') repeat-x;
+  height: 78vh;
+  width: 3084px;
+  animation: slide 60s linear infinite;
+  opacity: 1;
+}
+@keyframes slide {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    transform: translate3d(-514px, 0, 0);
+  }
+}
+.home-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Papyrus;
+  font-size: larger;
+  font-weight: bolder;
+  color: #C5C6C7;
 }
