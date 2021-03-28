@@ -7,12 +7,10 @@ function Cart() {
 
     const {Items, setItems, commerce} = useContext(Context)
 
-    console.log(Items)
-
     const EmptyCart = ()=> {
         return (
             <div className="empty-cart">
-                Your Cart is empty, add some items!
+                Your Cart is empty, <Link to="/watches">add some items!</Link>
             </div>
         )
     }
@@ -25,7 +23,7 @@ function Cart() {
                 {Items.line_items.map((item,index)=>{
                     let quantity = 1
                     return (
-                        <Col xs={6} md={3} className="mt-2">
+                        <Col key={index} xs={12} md={3} className="mt-2">
                             <Container>
                                 <Row>
                                     <Col>
@@ -39,7 +37,7 @@ function Cart() {
                                             {item.product_name}
                                         </div>
                                         <div style={{color: '#C3073F', fontSize:'x-small'}} className="mt-1">
-                                            {item.price.formatted_with_code}
+                                            {item.price.formatted_with_symbol}
                                         </div>
                                         <div className="mt-1">
                                             <Button 
@@ -88,7 +86,7 @@ function Cart() {
                 <div className="cart-checkout-wrapper">
                     <div className="subtotal"> 
                         Subtotal:   <span style={{color: '#C3073F', fontWeight: 'bold'}}> 
-                                        {Items.subtotal.formatted_with_code} 
+                                        {Items.subtotal.formatted_with_symbol} 
                                     </span>
                     </div>
                     <div>
