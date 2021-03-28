@@ -53,9 +53,6 @@ function AddressForm({next}) {
         (shippingSubdivision) && fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision)
     }, [commerce, checkoutToken, shippingCountry, shippingSubdivision])
 
-    console.log(options)
-    console.log(shippingOption)
-
     return (
         <>
             <div className="address mb-2">
@@ -66,14 +63,14 @@ function AddressForm({next}) {
                     <Form.Row>
                         <Form.Group as={Col} xs={12} md={6}>
                             <label>First Name*</label>
-                            <input name="firstName" ref={register({required: true})} placeholder="Enter First Name" />
+                            <input name="firstName" ref={register({required: true})} placeholder="John" />
                             {errors.firstName && (<p style={{color: '#950740', fontFamily: 'Papyrus'}}>
                                                     This field is required
                                                 </p>)}
                         </Form.Group>
                         <Form.Group as={Col} xs={12} md={6}>
                             <label>Last Name*</label>
-                            <input name="lastName" ref={register({required: true})} placeholder="Enter Last Name" />
+                            <input name="lastName" ref={register({required: true})} placeholder="Fisher" />
                             {errors.lastName && (<p style={{color: '#950740', fontFamily: 'Papyrus'}}>
                                                     This field is required
                                                 </p>)}
@@ -98,14 +95,14 @@ function AddressForm({next}) {
                     <Form.Row>
                         <Form.Group as={Col} xs={12} md={6}>
                             <label>City*</label>
-                            <input name="city" ref={register({required: true})} placeholder="Enter City" />
+                            <input name="city" ref={register({required: true})} placeholder="Johannesburg" />
                             {errors.city && (<p style={{color: '#950740', fontFamily: 'Papyrus'}}>
                                                 This field is required
                                             </p>)}
                         </Form.Group>
                         <Form.Group as={Col} xs={12} md={6}>
                             <label>Zip/Postal Code*</label>
-                            <input name="zip" ref={register({required: true})} placeholder="Enter Postal Code" />
+                            <input name="zip" ref={register({required: true})} placeholder="1619" />
                             {errors.zip && (<p style={{color: '#950740', fontFamily: 'Papyrus'}}>
                                                 This field is required
                                             </p>)}
@@ -130,7 +127,7 @@ function AddressForm({next}) {
                         <Form.Group as={Col} xs={12} md={6}>
                             <label>Shipping Subdivision</label>
                             <select 
-                                name="shippingSub" 
+                                name="shippingSubdivision" 
                                 ref={register({required: true})} 
                                 value={shippingSubdivision}
                                 onChange={(e)=>(setShippingSubdivision(e.target.value))}
@@ -160,18 +157,18 @@ function AddressForm({next}) {
                             </select>
                         </Form.Group>
                     </Form.Row>
-                    <div>
+                    <div className="order-summary-product-subtitle mt-2">
                         <Link to="/Cart">
                             <Button 
                                 type="button"
-                                variant="outline-primary"
+                                variant="outline-secondary"
                             >
                                 Back to Cart
                             </Button>
                         </Link>
                         <Button
                             type="submit"
-                            variant="primary"
+                            variant="secondary"
                         >
                             Next
                         </Button>
